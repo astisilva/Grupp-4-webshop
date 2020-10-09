@@ -1,0 +1,110 @@
+.App {
+  .container {
+    width: 80%;
+    height: auto;
+    background: rgba(255, 255, 255, 0.7);
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 20px;
+  }
+  .MuiAppBar-colorPrimary {
+    background-color: rgb(150, 125, 88);
+  }
+  .myImg {
+    width: 70px;
+  }
+  .MuiTab-textColorInherit {
+    color: black;
+    font-weight: bold;
+    font-size: 17px;
+  }
+  a:-webkit-any-link {
+    text-decoration: none;
+    margin-top: 10px;
+  }
+  .productContainer {
+    margin-top: 5em;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .root {
+    margin: auto;
+    margin-top: 20px;
+    max-height: 345px;
+  }
+  .notFound {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+  .notFound > h1 {
+    text-align: center;
+    color: white;
+    font-size: 9em;
+  }
+  .btnCard {
+    text-decoration: none;
+    color: blue;
+  }
+  .btnCard:active {
+    color: none;
+  }
+  .form-container {
+    margin: auto;
+    width: 50%;
+    display: grid;
+  }
+  .form-btn {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+  }
+  .MuiCardActions-root {
+    padding: 20px;
+  }
+  .containerSearch {
+    width: 100%;
+    height: auto;
+    background: rgba(255, 255, 255, 0.7);
+    margin: auto;
+    border-radius: 20px;
+  }
+
+  #standard-basic {
+    text-align: center !important;
+    color: green !important;
+    font-weight: bold!important;
+    width: 100%!important;
+    border: 0!important;
+    height: 1.1876em!important;
+    margin: 0!important;
+    display: block!important;
+    padding: 6px 0 7px!important;
+    min-width: 0!important;
+    background: none!important;
+    box-sizing: content-box!important;
+    animation-name: mui-auto-fill-cancel!important;
+    -webkit-tap-highlight-color: transparent!important;
+  }
+  .adminAvatar{
+    width: 200px;
+    float: right;
+  }
+  #avatar {
+    background-image: url('http://i.stack.imgur.com/Dj7eP.jpg');
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    border-radius: 50%;
+    margin: auto;
+
+}
+.category {
+  width: 90%;
+  display: inline-flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: wheat;
+  margin: auto;
+  cursor: pointer;
+}
+}
