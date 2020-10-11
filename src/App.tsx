@@ -9,7 +9,6 @@ import { Products, IProducts } from "./Components/Products";
 import { Details } from "./Components/Details";
 import { Cart } from "./Components/Cart";
 import { Register } from "./Components/Order";
-import { Admin } from "./Components/Admin";
 
 function App() {
   const defaultOrder: IProducts[] = [];
@@ -59,9 +58,6 @@ function App() {
           </Route>
           <Route path="/paycheck" exact component={Register}>
             <Register orders={order} />
-          </Route>
-          <Route path="/admin" exact component={Admin}>
-            <Admin />
           </Route>
         </Switch>
       </Router>

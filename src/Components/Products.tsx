@@ -9,8 +9,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
-import { Search } from "./SearchComponent";
-import { Category } from "./Category";
 
 export interface IProducts {
   id: number;
@@ -37,19 +35,15 @@ export function Products(props: IOrderProps) {
       });
   }, []);
 
-  const searchHandler = (data: IProducts[]) => {
+  /* const searchHandler = (data: IProducts[]) => {
     setProduct(data);
     console.log("data", data);
-  };
+  }; */
   return (
     <div className="productContainer">
       <br />
       <br />
       <br />
-      <div className="containerSearch">
-        <Search searchHandler={searchHandler} />
-      </div>
-        <Category />
       {products.map((product: IProducts) => {
         return (
           <Card className="root" style={{ maxWidth: "250px" }} key={product.id}>
