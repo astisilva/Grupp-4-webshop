@@ -25,20 +25,20 @@ interface IOrderProps {
 
 export function Products(props: IOrderProps) {
   const defaultOrder: IProducts[] = [];
-  const [movies, setMovie] = useState(defaultOrder);
+  const [products, setProduct] = useState(defaultOrder);
 
   useEffect(() => {
     axios
-      .get(`http://medieinstitutet-wie-products.azurewebsites.net/api/products`)
+      .get(`https://grupp-4-webshop.firebaseio.com/products.json`)
       .then((res) => {
         const products = res.data;
-        setMovie(products);
+        setProduct(products);
         console.log("Mina produkter:", products);
       });
   }, []);
 
   const searchHandler = (data: IProducts[]) => {
-    setMovie(data);
+    setProduct(data);
     console.log("data", data);
   };
   return (
@@ -50,26 +50,26 @@ export function Products(props: IOrderProps) {
         <Search searchHandler={searchHandler} />
       </div>
         <Category />
-      {movies.map((movie: IProducts) => {
+      {products.map((product: IProducts) => {
         return (
-          <Card className="root" style={{ maxWidth: "250px" }} key={movie.id}>
+          <Card className="root" style={{ maxWidth: "250px" }} key={product.id}>
             <CardActionArea>
               <Link
                 className="btnCard"
                 to={{
-                  pathname: `/details/${movie.id}`,
-                  state: { product: movie },
+                  pathname: `/details/${product.id}`,
+                  state: { product: product },
                 }}
               >
                 <CardMedia
                   className="media"
-                  image={movie.imageUrl}
-                  title={movie.name}
+                  image={product.imageUrl}
+                  title={product.name}
                   style={{ height: "140px", objectFit: "contain" }}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {movie.name.substr(0, 18)}
+                    {product.name.substr(0, 18)}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -77,8 +77,8 @@ export function Products(props: IOrderProps) {
                     component="p"
                     style={{ height: "50px" }}
                   >
-                    {movie.description.substr(0, 100)}
-                    {/* {movie.description} */}
+                    {product.description.substr(0, 100)}
+                    {/* {product.description} */}
                   </Typography>
                 </CardContent>
               </Link>
@@ -88,7 +88,7 @@ export function Products(props: IOrderProps) {
                 size="small"
                 color="secondary"
                 style={{ border: "1px solid green", background: "lightgreen" }}
-                onClick={() => props.handleClick(movie)}
+                onClick={() => props.handleClick(product)}
               >
                 Add to cart
               </Button>
