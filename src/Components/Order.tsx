@@ -60,7 +60,7 @@ export function Register(props: IRegisterProps) {
     console.log("POST - state:", registerState);
     axios
       .post(
-        `https://medieinstitutet-wie-products.azurewebsites.net/api/orders`,
+        `https://grupp-4-webshop.firebaseio.com/orders.json`,
         JSON.stringify(registerState),
         {
           headers: {
