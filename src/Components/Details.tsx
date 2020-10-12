@@ -1,6 +1,6 @@
+/* eslint-disable jsx-a11y/alt-text */
 import * as React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { useState } from 'react';
 import { IProducts } from './Products';
 
 interface IProduct {
@@ -8,7 +8,7 @@ interface IProduct {
 }
 
 export function Details () {
-    let {id} = useParams();
+    let {id}:{id:string} = useParams();
     let data = useLocation().state as IProduct;
     let product = data.product;
     console.log(data.product)

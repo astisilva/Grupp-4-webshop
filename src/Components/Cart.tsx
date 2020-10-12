@@ -6,25 +6,22 @@ import { Link } from "react-router-dom";
 
 interface ICartProps {
   orders: IProducts[];
-  removeHandler(item: IProducts): void;
+  removeHandler(cartIndex: number): void;
 }
 
 export function Cart(props: ICartProps) {
   const defaultOrder = props.orders;
-  const [product, setProduct] = useState(defaultOrder);
+  const [product] = useState(defaultOrder);
   let sum: number = product.reduce((total, value) => total + value.price, 0);
 
-  const removeHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("clicked");
-  };
 
   return (
     <div className="container">
       <h3 style={{ textAlign: "center" }}>Shopping Cart</h3>
       <div className="container" style={{ padding: "25px" }}>
-        {props.orders.map((item: IProducts) => {
+        {props.orders.map((item: IProducts, index) => {
           return (
-            <React.Fragment key={item.id}>
+            <React.Fragment key={index}>
               <div>
                 <span>
                   <b>Item: </b> {item.name}
@@ -39,7 +36,7 @@ export function Cart(props: ICartProps) {
                   background: "lightcoral",
                   float: "right",
                 }}
-                onClick={() => props.removeHandler(item)}
+                onClick={() => props.removeHandler(index)}
                 >
                 REMOVE
               </Button>
@@ -51,18 +48,17 @@ export function Cart(props: ICartProps) {
                 <p style={{float: 'left'}}>
                   <b>TOTAL: </b> {sum}, 00{" "}
                 </p>
-        <Link to={{ pathname: "/paycheck", state: sum }}>
           <Button
+          component={Link}
+          to={{ pathname: "/paycheck", state: sum }}
             style={{
               border: "1px solid green",
               background: "lightgreen",
-              // float: "right",
             }}
-            onClick={() => console.log("OK")}
+            disabled={ props.orders.length === 0 }
           >
             PURCHASE
           </Button>
-        </Link>
       </div>
       <br />
     </div>

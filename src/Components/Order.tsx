@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/alt-text */
 import * as React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { IProducts } from "./Products";
 
 interface IRegisterProps {
@@ -28,8 +29,6 @@ export interface IOrder {
 
 export function Register(props: IRegisterProps) {
   let sum: number = useLocation().state as number;
-    const [value, setValue] = React.useState('female');
-
   const defaultValue: IOrder = {
     companyId: 8903,
     created: "0001-01-01T00:00:00",
@@ -53,7 +52,7 @@ export function Register(props: IRegisterProps) {
       ...registerState,
       orderRows: orderArray,
     });
-  }, [props]);
+  }, [props, registerState, sum]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -82,17 +81,11 @@ export function Register(props: IRegisterProps) {
       [targetName]: event.target.value,
     });
   };
-
-  return (
-    <div>
+  if(props.orders.length !== 0) {
+    return (
+      
+      <div>
       <div className="container">
-        <Link to="/admin">
-          <div className="adminAvatar">
-            <div id="avatar"></div>
-            <b>ADMIN</b>
-          </div>
-        </Link>
-
         <br />
         <br />
         <h1 style={{ textAlign: "center" }}>Register your order:</h1>
@@ -104,15 +97,8 @@ export function Register(props: IRegisterProps) {
             value={registerState.createdBy}
             name="createdBy"
             onChange={handleChange}
-          />
+            />
           <label>Card:</label>
-          {/* <TextField
-            id="standard-basic"
-            type="text"
-            value={registerState.paymentMethod}
-            name="paymentMethod"
-            onChange={handleChange}
-          /> */}
           <div>
           <input type="checkbox" name="paymentMethod" value="visa" onChange={handleChange}/>
           <img src="https://img.favpng.com/4/20/5/credit-card-visa-electron-mastercard-png-favpng-aDKdw0ntnaPfLAeZf8aLWKQab.jpg" style={{width: '50px'}} />
@@ -129,7 +115,7 @@ export function Register(props: IRegisterProps) {
             value={"SEK " + sum + ",00"}
             name="totalPrice"
             onChange={handleChange}
-          />
+            />
           <Button
             variant="contained"
             type="submit"
@@ -138,11 +124,16 @@ export function Register(props: IRegisterProps) {
               border: "1px solid green",
               background: "lightgreen"
             }}
-          >
+            >
             READY TO PAY
           </Button>
         </form>
       </div>
     </div>
   );
+}
+    else {
+      window.location.href = "/";
+      return (<h2>Rerouting to starting page</h2>)
+    }
 }

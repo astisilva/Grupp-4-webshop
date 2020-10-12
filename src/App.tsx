@@ -13,7 +13,15 @@ import { Register } from "./Components/Order";
 function App() {
   const defaultOrder: IProducts[] = [];
   const [order, setOrder] = useState(defaultOrder);
-
+  const startUrl = window.location.pathname;
+  const defaultSliderValue = ():number => {
+    console.log(startUrl)
+    if(startUrl.startsWith('/details')) return 1;
+    else if(startUrl === '/cart' || startUrl === '/paycheck') return 2;
+    else return 0;
+  }
+  const [siderValue, setSliderValue] = useState(defaultSliderValue);
+  
   const handleClick = (productClicked: IProducts) => {
     console.log("You clicked in a product", productClicked);
     let array: IProducts[] = order;
@@ -22,26 +30,30 @@ function App() {
     console.log("orders", order);
   };
 
-  const removeHandler = (productClicked: IProducts) => {
-    console.log("you clicked to remove", productClicked.name);
+  const removeHandler = (cartIndex: number) => {
+    
+    setOrder(prevState=>prevState.filter((item, index) => index !== cartIndex)
+    )
+
   };
 
   return (
     <div className="App">
       <Router>
         <AppBar title="My App">
-          <Tabs value="">
-            <div>logo</div>
+          <Tabs 
+          value={siderValue}
+          >
             <Link to="/">
-              <Tab label="Home" className="tab" />
+              <Tab label="Home" className="tab" onChange={()=>setSliderValue(0)}/>
             </Link>
 
             <Link to="/products">
-              <Tab label="Products" />
+              <Tab label="Products" onChange={()=>setSliderValue(1)}/>
             </Link>
 
             <Link to="/cart">
-              <Tab label="Cart" />
+              <Tab label="Cart" onChange={()=>setSliderValue(2)}/>
             </Link>
           </Tabs>
         </AppBar>
@@ -49,14 +61,14 @@ function App() {
           <Route path="/" exact>
             <Home />
           </Route>
-          <Route path="/products" exact component={Products}>
+          <Route path="/products" exact>
             <Products handleClick={handleClick} />
           </Route>
           <Route path="/details/:id" exact children={<Details />} />
-          <Route path="/cart" exact component={Cart}>
+          <Route path="/cart" exact>
             <Cart orders={order} removeHandler={removeHandler} />
           </Route>
-          <Route path="/paycheck" exact component={Register}>
+          <Route path="/paycheck" exact>
             <Register orders={order} />
           </Route>
         </Switch>

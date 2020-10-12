@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Register } from './Order';
 
 export function Home () {
     return (

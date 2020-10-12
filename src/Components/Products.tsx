@@ -35,10 +35,6 @@ export function Products(props: IOrderProps) {
       });
   }, []);
 
-  /* const searchHandler = (data: IProducts[]) => {
-    setProduct(data);
-    console.log("data", data);
-  }; */
   return (
     <div className="productContainer">
       <br />
@@ -72,7 +68,6 @@ export function Products(props: IOrderProps) {
                     style={{ height: "50px" }}
                   >
                     {product.description.substr(0, 100)}
-                    {/* {product.description} */}
                   </Typography>
                 </CardContent>
               </Link>
