@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { Box, CardMedia, Grid, Typography } from '@material-ui/core';
 import * as React from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { IProducts } from './Products';
 
 interface IProduct {
@@ -8,26 +9,66 @@ interface IProduct {
 }
 
 export function Details () {
-    let {id}:{id:string} = useParams();
     let data = useLocation().state as IProduct;
     let product = data.product;
-    console.log(data.product)
 
     return (
-        <div style={{ textAlign: "center" }}>
-        <br />
-        <br />
-        <br />
-        <h3>Movie ID: {id}</h3>
-        <div className="container" style={{display: 'flex'}}>
-          <img
-            src={product.imageUrl}
-            style={{ width: "200px", height: "300px" }}
-            />
-            <h1>
-              {product.name} -: {product.price},00 SEK st
-            </h1>
-        </div>
-      </div>
+
+      <Grid
+        container
+      >
+        <Grid
+          item
+          xs={12}
+        >
+          <Grid
+          container
+          direction='column'
+          >
+            <Grid
+            item
+            >
+              <CardMedia
+                className="media"
+                image={product.imageUrl}
+                title={product.name}
+                style={{width: "100%", height: "20em"}}
+                />
+
+            </Grid>
+            <Grid
+            item
+            >
+              <Box
+              bgcolor='warning.main'
+              pt={5}
+              pb={5}
+              >
+                <Typography
+                  variant='h5'
+                  align='center'
+                  >
+                  <Box color="#FFF"> {product.name} </Box>
+                </Typography>
+                <Typography
+                  variant='body1'
+                  align='center'
+                  gutterBottom
+                  >
+                  <Box color="#FFF"> {product.description} </Box>
+                </Typography>
+                <Typography
+                  variant='h5'
+                  align='center'
+                  gutterBottom
+                  >
+                  <Box color="#FFF"> {product.price} kr</Box>
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
     );
 }

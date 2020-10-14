@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { IProducts } from "./Products";
-import { useState } from "react";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -9,10 +9,9 @@ interface ICartProps {
   removeHandler(cartIndex: number): void;
 }
 
-export function Cart(props: ICartProps) {
-  const defaultOrder = props.orders;
-  const [product] = useState(defaultOrder);
-  let sum: number = product.reduce((total, value) => total + value.price, 0);
+export function Cart(props: ICartProps) {  
+  let sum: number = props.orders.reduce((total, value) => total + value.price, 0);
+  
 
 
   return (

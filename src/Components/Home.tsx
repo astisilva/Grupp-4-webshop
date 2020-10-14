@@ -1,13 +1,14 @@
+import { Box, Typography } from '@material-ui/core';
 import * as React from 'react';
 
 export function Home () {
     return (
-      <div>
-        <br />
-        <br />
-        <br />
-
-        <h1 style={{color: 'burlywood'}}>Hej I'm your landing page</h1>
-      </div>
+      <Box>
+      <Typography
+      variant='h2'
+      color='primary'
+      align='center'
+      >Välkommen till Grupp 4:s webshop</Typography>
+      </Box>
     );
 }

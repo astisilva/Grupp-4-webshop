@@ -9,6 +9,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import { Grid } from "@material-ui/core";
 
 export interface IProducts {
   id: number;
@@ -36,55 +37,73 @@ export function Products(props: IOrderProps) {
   }, []);
 
   return (
-    <div className="productContainer">
-      <br />
-      <br />
-      <br />
-      {products.map((product: IProducts) => {
+    <div style={{ padding: 8 }}>
+      <Grid 
+      container
+      spacing={2}
+      justify="flex-start"
+      alignItems="flex-start"
+      >
+      {products.map((product: IProducts, index:number) => {
         return (
-          <Card className="root" style={{ maxWidth: "250px" }} key={product.id}>
-            <CardActionArea>
-              <Link
-                className="btnCard"
-                to={{
-                  pathname: `/details/${product.id}`,
-                  state: { product: product },
-                }}
-              >
+          <Grid 
+          item 
+          key={index} 
+          xs={12} 
+          sm={6} 
+          md={4} 
+          lg={3}>
+          <Card>
+            <CardActionArea
+              component={Link}
+              to={{
+                pathname: `/details/${product.id}`,
+                state: { product: product },
+              }}
+            >
                 <CardMedia
-                  className="media"
                   image={product.imageUrl}
                   title={product.name}
                   style={{ height: "140px", objectFit: "contain" }}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography 
+                    gutterBottom 
+                    variant="h5" 
+                    component="h2"
+                    noWrap={true}
+                    color="secondary"
+                  >
                     {product.name.substr(0, 18)}
                   </Typography>
                   <Typography
                     variant="body2"
-                    color="textSecondary"
+                    noWrap={true}
+                    color="primary"
                     component="p"
                     style={{ height: "50px" }}
                   >
                     {product.description.substr(0, 100)}
                   </Typography>
                 </CardContent>
-              </Link>
-            </CardActionArea>
-            <CardActions>
+            <CardActions
+            onClick={(e)=>{e.preventDefault()}}
+            >
               <Button
                 size="small"
-                color="secondary"
-                style={{ border: "1px solid green", background: "lightgreen" }}
+                variant="contained"
+                color="primary"
                 onClick={() => props.handleClick(product)}
               >
                 Add to cart
               </Button>
             </CardActions>
+            </CardActionArea>
           </Card>
+          </Grid>
         );
       })}
+      </Grid>
     </div>
   );
 }
