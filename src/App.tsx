@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import "./App.css";
 import "./main.scss";
-import { AppBar, Tabs, Tab, ThemeProvider } from "@material-ui/core";
+import { AppBar, Tabs, Tab, ThemeProvider, Box, Grid } from "@material-ui/core";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
 import { Home } from "./Components/Home";
 import { Products, IProducts } from "./Components/Products";
 import { Details } from "./Components/Details";
 import { Cart } from "./Components/Cart";
 import { Register } from "./Components/Order";
 import { blue, green } from "@material-ui/core/colors";
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
+
 
 function App() {
   const theme = createMuiTheme({
@@ -60,71 +61,103 @@ function App() {
     <div className="App">
       <Router>
         <ThemeProvider theme={theme}>
-        <AppBar title="My App" color="primary">
-          <Tabs 
-          value={siderValue}
+          <Box
+          bgcolor="primary.dark"
+          minHeight="100vh"
           >
-          <Tab 
-              label="Home" 
-              onClick={()=> handleChange(0)}
-              component={Link}
-              to="/"
-              className="tab" 
-              />
-              <Tab 
-              onClick={() => handleChange(1)}
-              label="Products" 
-              component={Link}
-              to="/products"
-              />
-              <Tab 
-              onClick={() => handleChange(2)}
-              label="Cart" 
-              component={Link}
-              to="/cart"
-              />
-          </Tabs>
-        </AppBar>
-        <br />
-        <br />
-        <br />
-        <Switch>
-          <Route 
-          path="/" 
-          exact 
-          component={Home}
-          />
-          <Route 
-          path="/products" 
-          exact
-          render={() => <Products
-            handleClick={handleClick}
-            />}
-            />
-          <Route 
-          path="/details/:id" 
-          exact 
-          component={Details}
-          />
-          <Route 
-          path="/cart" 
-          exact
-          render={() => 
-            <Cart 
-            orders={order} 
-            removeHandler={removeHandler}
-            />}
-            />
-          <Route 
-          path="/paycheck" 
-          exact 
-          render={() => 
-            <Register
-            orders={order}
-            />
-          }
-          />
-        </Switch>
+            <AppBar title="My App" color="primary">
+              <Grid 
+              container
+              alignItems="center"
+              justify="space-between"
+              >
+                <Grid 
+                item
+                xs={2}
+                sm={3}
+                md={5}
+                lg={7}
+                xl={9}
+                >
+                  <Box pl={{ xs: 2, sm: 5 }}>
+                  <EmojiObjectsIcon fontSize="large"/>
+                  </Box>
+                </Grid>
+                <Grid 
+                item
+                xs={10}
+                sm={9}
+                md={7}
+                lg={5}
+                xl={3}
+                >  
+                  <Tabs 
+                  value={siderValue}
+                  variant="fullWidth"
+                  >
+                  <Tab 
+                      label="Home" 
+                      onClick={()=> handleChange(0)}
+                      component={Link}
+                      to="/"
+                      className="tab" 
+                      />
+                      <Tab 
+                      onClick={() => handleChange(1)}
+                      label="Products" 
+                      component={Link}
+                      to="/products"
+                      />
+                      <Tab 
+                      onClick={() => handleChange(2)}
+                      label="Cart" 
+                      component={Link}
+                      to="/cart"
+                      />
+                  </Tabs>
+                </Grid>
+              </Grid>
+            </AppBar>
+            <Box pt="50px">
+              <Switch>
+                <Route 
+                path="/" 
+                exact 
+                component={Home}
+                />
+                <Route 
+                path="/products" 
+                exact
+                render={() => <Products
+                  handleClick={handleClick}
+                  />}
+                  />
+                <Route 
+                path="/details/:id" 
+                exact 
+                component={Details}
+                />
+                <Route 
+                path="/cart" 
+                exact
+                render={() => 
+                  <Cart 
+                  orders={order} 
+                  removeHandler={removeHandler}
+                  />}
+                  />
+                <Route 
+                path="/paycheck" 
+                exact 
+                render={() => 
+                  <Register
+                  orders={order}
+                  />
+                }
+                />
+              </Switch>
+            </Box>
+          </Box>
           </ThemeProvider>
       </Router>
     </div>

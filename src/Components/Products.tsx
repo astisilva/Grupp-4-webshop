@@ -9,7 +9,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
-import { Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 
 export interface IProducts {
   id: number;
@@ -54,51 +54,55 @@ export function Products(props: IOrderProps) {
           md={4} 
           lg={3}>
           <Card>
+            <Box
+            bgcolor="primary.dark"
+            >
             <CardActionArea
               component={Link}
               to={{
                 pathname: `/details/${product.id}`,
                 state: { product: product },
               }}
-            >
-                <CardMedia
-                  image={product.imageUrl}
-                  title={product.name}
-                  style={{ height: "140px", objectFit: "contain" }}
+              >
+              <CardMedia
+                image={product.imageUrl}
+                title={product.name}
+                style={{ height: "140px", objectFit: "contain" }}
                 />
-                <CardContent>
-                  <Typography 
-                    gutterBottom 
-                    variant="h5" 
-                    component="h2"
-                    noWrap={true}
-                    color="secondary"
+              <CardContent>
+                <Typography 
+                  gutterBottom 
+                  variant="h5" 
+                  component="h2"
+                  noWrap={true}
+                  color="secondary"
                   >
-                    {product.name.substr(0, 18)}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    noWrap={true}
-                    color="primary"
-                    component="p"
-                    style={{ height: "50px" }}
+                  {product.name.substr(0, 18)}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  noWrap={true}
+                  color="secondary"
+                  component="p"
+                  style={{ height: "50px" }}
                   >
-                    {product.description.substr(0, 100)}
-                  </Typography>
-                </CardContent>
-            <CardActions
-            onClick={(e)=>{e.preventDefault()}}
-            >
+                  {product.description.substr(0, 100)}
+                </Typography>
+              </CardContent>
+              <CardActions
+                onClick={(e)=>{e.preventDefault()}}
+                >
               <Button
                 size="small"
                 variant="contained"
                 color="primary"
                 onClick={() => props.handleClick(product)}
-              >
+                >
                 Add to cart
               </Button>
             </CardActions>
             </CardActionArea>
+            </Box>
           </Card>
           </Grid>
         );

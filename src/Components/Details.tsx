@@ -4,6 +4,7 @@ import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { IProducts } from './Products';
 
+
 interface IProduct {
     product: IProducts;
 }
@@ -43,26 +44,27 @@ export function Details () {
               bgcolor='warning.main'
               pt={5}
               pb={5}
+              color="#FFF"
               >
                 <Typography
                   variant='h5'
                   align='center'
                   >
-                  <Box color="#FFF"> {product.name} </Box>
+                  {product.name}
                 </Typography>
                 <Typography
                   variant='body1'
                   align='center'
                   gutterBottom
                   >
-                  <Box color="#FFF"> {product.description} </Box>
+                  {product.description}
                 </Typography>
                 <Typography
                   variant='h5'
                   align='center'
                   gutterBottom
                   >
-                  <Box color="#FFF"> {product.price} kr</Box>
+                  {product.price} kr
                 </Typography>
               </Box>
             </Grid>

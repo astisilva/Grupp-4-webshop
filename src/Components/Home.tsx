@@ -3,10 +3,12 @@ import * as React from 'react';
 
 export function Home () {
     return (
-      <Box>
+      <Box
+      mt="25vh"
+      >
       <Typography
       variant='h2'
-      color='primary'
+      color='secondary'
       align='center'
       >Välkommen till Grupp 4:s webshop</Typography>
       </Box>
