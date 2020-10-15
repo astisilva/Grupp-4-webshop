@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { IProducts } from "./Products";
-import { Button } from "@material-ui/core";
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 interface ICartProps {
   orders: IProducts[];
@@ -15,51 +17,112 @@ export function Cart(props: ICartProps) {
 
 
   return (
-    <div className="container">
-      <h3 style={{ textAlign: "center" }}>Shopping Cart</h3>
-      <div className="container" style={{ padding: "25px" }}>
-        {props.orders.map((item: IProducts, index) => {
-          return (
-            <React.Fragment key={index}>
-              <div>
-                <span>
-                  <b>Item: </b> {item.name}
-                </span>
-                <span>
-                  <b>Price: </b> {item.price} -:
-                </span>
-              <Button
+    <Grid
+    container
+    direction="column"
+    alignItems="center"
+    >
+      <Grid item>
+        <Box
+        color="primary.light"
+        pt={2}
+        pb={2}
+        >
+        <Typography variant="h4" >Cart</Typography>
+        </Box>
+      </Grid>
+      <Grid item>     
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <Box
+                  width={{xs: 100, sm: 250 }}
+                  >
+                   <Typography> Product</Typography>
+                </Box>
+              </TableCell>
+              <TableCell align="right">
+                <Box
+                  width={{xs: 100, sm: 125, }}
+                  > 
+                  <Typography>
+
+                  Price
+                  </Typography>
+                </Box>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.orders.map((product, index) => {
+              return (
+              <TableRow key={index}>
+                <TableCell 
+                component="th" 
+                scope="row">
+                  {product.name}
+                </TableCell>
+                <TableCell align="right">
+                  <Box
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  >
+                  <span>
+                  {product.price} kr
+                  </span>
+                  <Box
+                  pl={1}
+                  >
+                  <Button
                 size="small"
-                style={{
-                  border: "1px solid red",
-                  background: "lightcoral",
-                  float: "right",
-                }}
+                
                 onClick={() => props.removeHandler(index)}
                 >
-                REMOVE
+                <DeleteIcon fontSize="small"/>
               </Button>
-              </div>
-              <hr />
-            </React.Fragment>
-          );
-        })}
-                <p style={{float: 'left'}}>
-                  <b>TOTAL: </b> {sum}, 00{" "}
-                </p>
-          <Button
+                </Box>
+                </Box>
+                </TableCell>
+                
+              </TableRow>
+              )})}
+              <TableRow>
+                <TableCell>
+                  <Typography>
+                    Total
+                  </Typography>
+                </TableCell>
+                <TableCell align="right">
+                  <Typography>
+                   {sum} kr
+                  </Typography>
+                </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      </Grid>
+      <Grid
+      item
+      >
+      <Box
+      pt={5}
+      >
+      <Button
           component={Link}
           to={{ pathname: "/paycheck", state: sum }}
-            style={{
-              border: "1px solid green",
-              background: "lightgreen",
-            }}
-            disabled={ props.orders.length === 0 }
+          variant="contained"
+          color="primary"
+          disabled={ props.orders.length === 0 }
           >
             PURCHASE
           </Button>
-      </div>
-      <br />
-    </div>
+          </Box>
+          </Grid>
+    </Grid>
   );
 }
