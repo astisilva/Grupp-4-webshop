@@ -152,6 +152,7 @@ function App() {
                 render={() => 
                   <Register
                   orders={order}
+                  removeHandler={removeHandler}
                   />
                 }
                 />

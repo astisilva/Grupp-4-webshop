@@ -6,9 +6,11 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useLocation } from "react-router-dom";
 import { IProducts } from "./Products";
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Grid, Box, Paper } from "@material-ui/core";
 
 interface IRegisterProps {
   orders: IProducts[];
+  removeHandler(cartIndex: number):void;
 }
 
 export interface IOrderRow {
@@ -33,7 +35,7 @@ export function Register(props: IRegisterProps) {
     companyId: 8903,
     created: "0001-01-01T00:00:00",
     createdBy: "",
-    paymentMethod: "",
+    paymentMethod: "visa",
     totalPrice: sum,
     status: 2,
     orderRows: [],
@@ -52,7 +54,7 @@ export function Register(props: IRegisterProps) {
       ...registerState,
       orderRows: orderArray,
     });
-  }, [props, registerState, sum]);
+  }, [props]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -68,13 +70,13 @@ export function Register(props: IRegisterProps) {
         }
       )
       .then((result) => {
-        setRegisterState(result.data);
         console.log("Mina ordrar", result.data);
       });
+    props.orders.forEach((item, index)=>props.removeHandler(index))
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let targetName = event.target.name;
+    let targetName = event.target.name
 
     setRegisterState({
       ...registerState,
@@ -83,54 +85,63 @@ export function Register(props: IRegisterProps) {
   };
   if(props.orders.length !== 0) {
     return (
-      
-      <div>
-      <div className="container">
-        <br />
-        <br />
-        <h1 style={{ textAlign: "center" }}>Register your order:</h1>
-        <form onSubmit={handleSubmit} className="form-container">
-          <label>Email:</label>
-          <TextField
-            id="standard-basic"
-            type="email"
-            value={registerState.createdBy}
-            name="createdBy"
-            onChange={handleChange}
-            />
-          <label>Card:</label>
-          <div>
-          <input type="checkbox" name="paymentMethod" value="visa" onChange={handleChange}/>
-          <img src="https://img.favpng.com/4/20/5/credit-card-visa-electron-mastercard-png-favpng-aDKdw0ntnaPfLAeZf8aLWKQab.jpg" style={{width: '50px'}} />
-          <input type="checkbox" name="paymentMethod" value="mastercard" onChange={handleChange}/>
-          <img src="https://p1.hiclipart.com/preview/191/339/693/visa-mastercard-logo-credit-card-yellow-text-line-area-circle-png-clipart.jpg" style={{width: '50px'}} />
-          <input type="checkbox" name="paymentMethod" value="maestro" onChange={handleChange}/>
-          <img src="https://i7.pngguru.com/preview/397/232/908/maestro-mastercard-credit-card-debit-card-payment-mastercard.jpg" style={{width: '50px'}} />
-
-          </div>
-          <label>Amount:</label>
-          <TextField
-            id="standard-basic"
-            type="tel"
-            value={"SEK " + sum + ",00"}
-            name="totalPrice"
-            onChange={handleChange}
-            />
-          <Button
-            variant="contained"
-            type="submit"
-            className="form-btn"
-            style={{
-              border: "1px solid green",
-              background: "lightgreen"
-            }}
-            >
-            READY TO PAY
-          </Button>
-        </form>
-      </div>
-    </div>
-  );
+      <Grid
+      container
+      direction="column"
+      alignContent="center"
+      >
+        <Grid
+        item
+        >
+          <Box
+          mt={5}
+          p={5}
+          bgcolor="primary.light"
+          color="#FFF"
+          component={Paper}
+          >
+            <form noValidate onSubmit={handleSubmit} autoComplete="off">
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Payment</FormLabel>
+                <Box
+                mt={2}
+                >
+                  <TextField
+                      required
+                      helperText="Enter email here"
+                      type="email"
+                      value={registerState.createdBy}
+                      name="createdBy"
+                      label="Email"
+                      onChange={handleChange}
+                      />
+                </Box>
+                <Box
+                mt={2}
+                >                
+                  <RadioGroup aria-label="paymentMethod" name="paymentMethod" value={registerState.paymentMethod}>
+                    <FormControlLabel value="visa" control={<Radio onChange={handleChange}/>} label="VISA" />
+                    <FormControlLabel value="mastercard" control={<Radio onChange={handleChange}/>} label="Mastercard" />
+                    <FormControlLabel value="maestro" control={<Radio onChange={handleChange}/>} label="Maestro" />
+                  </RadioGroup>
+                </Box> 
+                <Box
+                mt={5}
+                >
+                  <Button
+                        variant="contained"
+                        type="submit"
+                        color="primary"
+                        >
+                        READY TO PAY
+                  </Button>
+                </Box>
+              </FormControl>
+            </form>
+          </Box>
+        </Grid>
+     </Grid>
+    );
 }
     else {
       window.location.href = "/";
