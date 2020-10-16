@@ -72,7 +72,7 @@ export function Register(props: IRegisterProps) {
       .then((result) => {
         console.log("Mina ordrar", result.data);
       });
-    props.orders.forEach((item, index)=>props.removeHandler(index))
+      props.orders.forEach(()=>props.removeHandler(0))
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +100,7 @@ export function Register(props: IRegisterProps) {
           color="#FFF"
           component={Paper}
           >
+            <ValidatorForm></ValidatorForm>
             <form noValidate onSubmit={handleSubmit} autoComplete="off">
               <FormControl component="fieldset">
                 <FormLabel component="legend">Payment</FormLabel>
