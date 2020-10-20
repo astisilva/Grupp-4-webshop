@@ -100,7 +100,6 @@ export function Register(props: IRegisterProps) {
           color="#FFF"
           component={Paper}
           >
-            <ValidatorForm></ValidatorForm>
             <form noValidate onSubmit={handleSubmit} autoComplete="off">
               <FormControl component="fieldset">
                 <FormLabel component="legend">Payment</FormLabel>
